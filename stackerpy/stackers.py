@@ -20,7 +20,7 @@ class ModelStacker():
 		raise NotImplementedError()
 		
 
-class ExplorativeModelStacker():
+class ExplorativeStacker():
 	"""
 	Explorative Model Stacker
 	"""
