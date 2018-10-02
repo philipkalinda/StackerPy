@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from geneticfs import GeneticFS
 
 class ModelStacker():
 	"""
