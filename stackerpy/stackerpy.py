@@ -1,10 +1,9 @@
 import pandas as pd
 from sklearn.model_selection import KFold
 import numpy as np
-import time
 
 
-class StackerPyClassifier
+class StackerPyClassifier:
 
     def __init__(self):
         """
@@ -23,26 +22,7 @@ class StackerPyClassifier
         self.raw_stacker = None
         self.stacker = None
 
-    def fit(self, X, y, models, stacker, blend=False, splits=5, model_feature_indices=None):
-        """
-        :param X:
-        :param y:
-        :param models:
-        :param stacker:
-        :param test_size:
-        :param model_feature_indices:
-        :return:
-        """
-
-        # re-initialise so that you can
-        self.__init__()
-
-        self.raw_models = models
-        self.raw_stacker = stacker
-        self.blend = blend
-        self.splits = splits
-        self.model_feature_indices = model_feature_indices
-
+    def validate_models(self, models):
         for model in models:
             # model name
             model_name = model.__str__().split('(')[0]
@@ -59,32 +39,70 @@ class StackerPyClassifier
             if 'predict_proba' in dir(model):
                 self.model_methods.append('predict_proba')
 
+    @staticmethod
+    def model_predictor(model, X, method):
+        """
+        :param model:
+        :param X:
+        :param method:
+        :return:
+        """
+        
+        predictions = None
+        if method == 'predict_proba':
+            predictions = model.predict_proba(X)
+        if method == 'predict':
+            predictions = model.predict(X)
+
+        return predictions
+
+    def fit(self, X, y, models, stacker, blend=False, splits=5, model_feature_indices=None):
+        """
+        :param X: 
+        :param y: 
+        :param models: 
+        :param stacker: 
+        :param blend: 
+        :param splits: 
+        :param model_feature_indices: 
+        :return: 
+        """
+
+        # re-initialise so that you can
+        self.__init__()
+
+        # some saved variables during fit
+        self.raw_models = models
+        self.raw_stacker = stacker
+        self.blend = blend
+        self.splits = splits
+        self.model_feature_indices = model_feature_indices
+
+        self.validate_models(models)
+
         # convert X into a dataframe if not already
         if str(type(X)) != """<class 'pandas.core.frame.DataFrame'>""":
             X = pd.DataFrame(X)
 
         if self.model_feature_indices is None:
-            self.model_feature_indices = [ [i for i in range(X.shape[1])] for _ in models ]
+            self.model_feature_indices = [[i for i in range(X.shape[1])] for _ in models]
 
-        for model, features, method in zip(models, model_feature_indices, self.model_methods):
+        for model, features, method in zip(self.raw_models, self.model_feature_indices, self.model_methods):
 
             # model_name
             model_name = model.__str__().split('(')[0]
 
             # train model
-            X_model_features = X.iloc[:,features]
+            X_model_features = X.iloc[:, features]
 
             metafeatures = None
             # blending if required
             if self.blend is False:
                 model.fit(X_model_features, y)
 
-                # predict metafeatures
-                if method == 'predict_proba':
-                    metafeatures = model.predict_proba(X_model_features)
-                if method == 'predict':
-                    metafeatures = model.predict(X_model_features)
+                metafeatures = self.model_predictor(model, X_model_features, method)
 
+                # store fit model for future metafeature predictions
                 self.fit_models[model_name] = model
 
             if self.blend is True:
@@ -110,68 +128,57 @@ class StackerPyClassifier
                     # append metas
                     metafeatures.iloc[meta_idx, :] = meta
 
+                    # store fit model for future metafeature predictions
                     self.fit_blended_models[model_name].append(model)
-
 
             # append metafeatures to the metafeature dataframe
             self.metafeatures_df[model_name] = metafeatures
 
-            #store fit model for future metafeature predictions
-            self.fit_models[model_name] = model
-
-
         # create final df with metafeatures
-        self.X_with_metafeatures = pd.concat([X, self.metafeatures_df], axis = 1)
+        self.X_with_metafeatures = pd.concat([X, self.metafeatures_df], axis=1)
 
         # final stacked X-fit
         self.stacker = stacker.fit(self.X_with_metafeatures, y)
 
-
     def predict(self, X):
 
-        # todo: finish this part
+        # convert X into a dataframe if not already
+        if str(type(X)) != """<class 'pandas.core.frame.DataFrame'>""":
+            X = pd.DataFrame(X)
+
         metafeatures_df = pd.DataFrame()
 
         if self.blend is False:
 
-            for model_name, model in self.fit_models.items():
+            for (model_name, model), features, method in zip(self.fit_models.items(), self.model_methods):
 
-                model.fit(X_model_features, y)
+                X_model_features = X.iloc[:, features]
 
-                # predict metafeatures
-                if method == 'predict_proba':
-                    metafeatures = model.predict_proba(X_model_features)
-                if method == 'predict':
-                    metafeatures = model.predict(X_model_features)
+                metafeatures = self.model_predictor(model, X_model_features, method)
+
+                metafeatures_df[model_name] = metafeatures
 
         if self.blend is True:
 
-            # folder for blending
-            kf = KFold(n_splits=self.splits)
+            # loop through all the available model types
+            for (model_name, model_list), features, method in zip(self.fit_blended_models.items(), self.model_methods):
 
-            # metafeatures
-            metafeatures = pd.Series(np.zeros(X.shape[0]))
-            for train_idx, meta_idx in kf.split(X_model_features):
+                X_model_features = X.iloc[:, features]
 
-                # fit to train
-                model.fit(X_model_features.iloc[train_idx, :])
+                model_df = pd.DataFrame()
 
-                meta = None
-                # predict meta
-                if method == 'predict_proba':
-                    meta = model.predict_proba(X_model_features.iloc[meta_idx, :])
-                if method == 'predict':
-                    meta = model.predict(X_model_features.iloc[meta_idx, :])
+                # loop through all the different models that were split during blended
+                for model_idx, model in enumerate(model_list):
 
-                # append metas
-                metafeatures.iloc[meta_idx, :] = meta
+                    # predict meta
+                    meta = self.model_predictor(model, X_model_features, method)
 
-            # metafeature production
-            metafeatures = model.predict_proba(X)
+                    model_df[model_idx] = meta
 
-            # append metafeatures
-            metafeatures_df[model_name] = metafeatures
+                # average predictions from all different models from the blending process
+                metafeatures = np.mean(model_df, axis=1)
 
+                metafeatures_df[model_name] = metafeatures
 
         X_with_metafeatures = pd.concat([X, metafeatures_df], axis=1)
 
