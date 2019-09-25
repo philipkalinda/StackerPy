@@ -13,7 +13,6 @@ setup(
   install_requires=[
           'numpy',
           'sklearn',
-		  'geneticfs',
           'matplotlib'
       ],
   classifiers=[
