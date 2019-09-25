@@ -47,7 +47,7 @@ class StackerPyClassifier:
         :param method:
         :return:
         """
-        
+
         predictions = None
         if method == 'predict_proba':
             predictions = model.predict_proba(X)
@@ -58,14 +58,14 @@ class StackerPyClassifier:
 
     def fit(self, X, y, models, stacker, blend=False, splits=5, model_feature_indices=None):
         """
-        :param X: 
-        :param y: 
-        :param models: 
-        :param stacker: 
-        :param blend: 
-        :param splits: 
-        :param model_feature_indices: 
-        :return: 
+        :param X:
+        :param y:
+        :param models:
+        :param stacker:
+        :param blend:
+        :param splits:
+        :param model_feature_indices:
+        :return:
         """
 
         # re-initialise so that you can
@@ -88,7 +88,6 @@ class StackerPyClassifier:
             self.model_feature_indices = [[i for i in range(X.shape[1])] for _ in models]
 
         for model, features, method in zip(self.raw_models, self.model_feature_indices, self.model_methods):
-
             # model_name
             model_name = model.__str__().split('(')[0]
 
@@ -106,24 +105,18 @@ class StackerPyClassifier:
                 self.fit_models[model_name] = model
 
             if self.blend is True:
-
                 self.fit_blended_models[model_name] = []
                 # folder for blending
                 kf = KFold(n_splits=self.splits)
 
                 # metafeatures
                 metafeatures = pd.Series(np.zeros(X.shape[0]))
-                for idx, (train_idx, meta_idx) in enumerate(kf.split(X_model_features)):
 
+                for idx, (train_idx, meta_idx) in enumerate(kf.split(X_model_features)):
                     # fit to train
                     model.fit(X_model_features.iloc[train_idx, :], y.iloc[train_idx, :])
 
-                    meta = None
-                    # predict meta
-                    if method == 'predict_proba':
-                        meta = model.predict_proba(X_model_features.iloc[meta_idx, :])
-                    if method == 'predict':
-                        meta = model.predict(X_model_features.iloc[meta_idx, :])
+                    meta = self.model_predictor(model, X_model_features.iloc[meta_idx, :], method)
 
                     # append metas
                     metafeatures.iloc[meta_idx, :] = meta
