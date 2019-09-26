@@ -50,7 +50,7 @@ class StackerPyClassifier:
 
         predictions = None
         if method == 'predict_proba':
-            predictions = model.predict_proba(X)
+            predictions = model.predict_proba(X)[:,1]
         if method == 'predict':
             predictions = model.predict(X)
 
@@ -82,10 +82,16 @@ class StackerPyClassifier:
 
         # convert X into a dataframe if not already
         if str(type(X)) != """<class 'pandas.core.frame.DataFrame'>""":
-            X = pd.DataFrame(X)
+            X = pd.DataFrame(X).reset_index(drop=True)
+        # convert y into a dataframe if not already
+        if str(type(y)) != """<class 'pandas.core.frame.DataFrame'>""":
+            y = pd.DataFrame(y).reset_index(drop=True)
 
         if self.model_feature_indices is None:
             self.model_feature_indices = [[i for i in range(X.shape[1])] for _ in models]
+
+        self.model_names_list = [model.__str__().split('(')[0] for model in self.raw_models]
+        self.metafeatures_df = pd.DataFrame(index=[i for i in range(X.shape[0])], columns=self.model_names_list)
 
         for model, features, method in zip(self.raw_models, self.model_feature_indices, self.model_methods):
             # model_name
@@ -97,7 +103,8 @@ class StackerPyClassifier:
             metafeatures = None
             # blending if required
             if self.blend is False:
-                model.fit(X_model_features, y)
+
+                model.fit(X_model_features, np.ravel(y))
 
                 metafeatures = self.model_predictor(model, X_model_features, method)
 
@@ -114,12 +121,12 @@ class StackerPyClassifier:
 
                 for idx, (train_idx, meta_idx) in enumerate(kf.split(X_model_features)):
                     # fit to train
-                    model.fit(X_model_features.iloc[train_idx, :], y.iloc[train_idx, :])
+                    model.fit(X_model_features.iloc[train_idx, :], np.ravel(y.iloc[train_idx, :]))
 
                     meta = self.model_predictor(model, X_model_features.iloc[meta_idx, :], method)
 
                     # append metas
-                    metafeatures.iloc[meta_idx, :] = meta
+                    metafeatures.iloc[meta_idx] = meta
 
                     # store fit model for future metafeature predictions
                     self.fit_blended_models[model_name].append(model)
@@ -128,22 +135,22 @@ class StackerPyClassifier:
             self.metafeatures_df[model_name] = metafeatures
 
         # create final df with metafeatures
-        self.X_with_metafeatures = pd.concat([X, self.metafeatures_df], axis=1)
+        self.X_with_metafeatures = pd.concat([X.reset_index(drop=True), self.metafeatures_df.reset_index(drop=True)], axis=1)
 
         # final stacked X-fit
-        self.stacker = stacker.fit(self.X_with_metafeatures, y)
+        self.stacker = stacker.fit(self.X_with_metafeatures, np.ravel(y))
 
     def predict(self, X):
 
         # convert X into a dataframe if not already
         if str(type(X)) != """<class 'pandas.core.frame.DataFrame'>""":
-            X = pd.DataFrame(X)
+            X = pd.DataFrame(X).reset_index()
 
-        metafeatures_df = pd.DataFrame()
+        metafeatures_df = pd.DataFrame(index=[i for i in range(X.shape[0])], columns=self.model_names_list)
 
         if self.blend is False:
 
-            for (model_name, model), features, method in zip(self.fit_models.items(), self.model_methods):
+            for (model_name, model), features, method in zip(self.fit_models.items(), self.model_feature_indices, self.model_methods):
 
                 X_model_features = X.iloc[:, features]
 
@@ -154,7 +161,7 @@ class StackerPyClassifier:
         if self.blend is True:
 
             # loop through all the available model types
-            for (model_name, model_list), features, method in zip(self.fit_blended_models.items(), self.model_methods):
+            for (model_name, model_list), features, method in zip(self.fit_blended_models.items(), self.model_feature_indices, self.model_methods):
 
                 X_model_features = X.iloc[:, features]
 
@@ -173,7 +180,8 @@ class StackerPyClassifier:
 
                 metafeatures_df[model_name] = metafeatures
 
-        X_with_metafeatures = pd.concat([X, metafeatures_df], axis=1)
+        X_with_metafeatures = pd.concat([X.reset_index(drop=True), metafeatures_df.reset_index(drop=True)], axis=1)
+
 
         # make predictions
         predictions = self.stacker.predict(X_with_metafeatures)
