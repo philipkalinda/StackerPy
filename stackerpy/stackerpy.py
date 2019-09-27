@@ -3,7 +3,7 @@ from sklearn.model_selection import KFold
 import numpy as np
 
 
-class StackerPyClassifier:
+class StackerModel:
 
     def __init__(self):
         """
