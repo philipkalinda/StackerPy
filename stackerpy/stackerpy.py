@@ -1,6 +1,6 @@
 import pandas as pd
-from sklearn.model_selection import KFold
 import numpy as np
+from sklearn.model_selection import KFold
 
 
 class StackerModel:
@@ -8,6 +8,7 @@ class StackerModel:
     def __init__(self):
         """
         """
+
         self.X = None
         self.y = None
         self.blend = None
@@ -22,14 +23,47 @@ class StackerModel:
         self.raw_stacker = None
         self.stacker = None
 
+    def __str__(self):
+
+        print(f"""StackerModel \
+        [n_models: {len(self.raw_models)}], \ 
+        [Models: {[i.__str__('(').split()[0] for i in self.raw_models]}]""")
+
+    def validate_stacker(self, stacker):
+        """
+        stacker validation method. Checks that the stacker is able to fit and predict.
+        :param stacker:
+        :return:
+        """
+
+        stacker_name = stacker.__str__().split('(')[0]
+
+        # assert that stacker has fit method
+        assert 'fit' in dir(stacker), \
+            f"""{stacker_name} [Selected Stacker] does not have a fit method"""
+
+        # assert that stacker has predict method
+        assert 'predict' in dir(stacker), \
+            f"""{stacker_name} [Selected Stacker] does not have a predict method"""
+
+
     def validate_models(self, models):
+        """
+        model validation method. Checks that each of the models to be stacked are able to predict_proba or predict
+        :param models:
+        :return:
+        """
+
         for model in models:
             # model name
             model_name = model.__str__().split('(')[0]
 
             # assert that each model has a predict_proba or predict method
             assert any(['predict' in dir(model), 'predict_proba' in dir(model)]), \
-                f"""{model.__str__().split('(')[0]} does not have a predict or predict_proba method"""
+                f"""{model_name} does not have a predict or predict_proba method"""
+
+            assert 'fit' in dir(model), \
+                f"""{model_name} does not have a fit method"""
 
             # determine which method to use from each of the models in the ist and keep stored
             if 'predict_proba' not in dir(model) and 'predict' in dir(model):
@@ -42,6 +76,7 @@ class StackerModel:
     @staticmethod
     def model_predictor(model, X, method):
         """
+        prediction method for models, depending on the methods
         :param model:
         :param X:
         :param method:
@@ -50,7 +85,7 @@ class StackerModel:
 
         predictions = None
         if method == 'predict_proba':
-            predictions = model.predict_proba(X)[:,1]
+            predictions = model.predict_proba(X)[:, 1]
         if method == 'predict':
             predictions = model.predict(X)
 
@@ -71,6 +106,10 @@ class StackerModel:
         # re-initialise so that you can
         self.__init__()
 
+        # validations
+        self.validate_models(models)
+        self.validate_stacker(stacker)
+
         # some saved variables during fit
         self.raw_models = models
         self.raw_stacker = stacker
@@ -78,7 +117,6 @@ class StackerModel:
         self.splits = splits
         self.model_feature_indices = model_feature_indices
 
-        self.validate_models(models)
 
         # convert X into a dataframe if not already
         if str(type(X)) != """<class 'pandas.core.frame.DataFrame'>""":
@@ -141,6 +179,11 @@ class StackerModel:
         self.stacker = stacker.fit(self.X_with_metafeatures, np.ravel(y))
 
     def predict(self, X):
+        """
+        prediction function using the models built in the fit method.
+        :param X:
+        :return:
+        """
 
         # convert X into a dataframe if not already
         if str(type(X)) != """<class 'pandas.core.frame.DataFrame'>""":
