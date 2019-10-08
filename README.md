@@ -36,4 +36,4 @@ stacker_predictions = stacker.predict(X_test)
 
 ### Performance
 
-[f](https://raw.githubusercontent.com/philipkalinda/StackerPy/master/stackerpy/Model%20Scoring%20Results.png)
+![Results](https://raw.githubusercontent.com/philipkalinda/StackerPy/master/stackerpy/Model%20Scoring%20Results.png)
