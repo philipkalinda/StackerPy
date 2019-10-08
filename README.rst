@@ -19,9 +19,10 @@ StackerPy
 
 |Travis|_ |PyPi|_ |Python35|_
 
+
 Model Stacking for Scikit-Learn Models (including the ability to blend)
  
-More Details on Website @: [StackerPy - Model Stacking For Scikit-Learn Models](https://philipkalinda.com/ds10)
+More Details on Website @: `StackerPy - Model Stacking For Scikit-Learn Models <https://philipkalinda.com/ds10>` 
 
 ### Tech
 
