@@ -1,8 +1,5 @@
-[![N|Solid](http://www.philipkalinda.com/uploads/8/6/5/4/86541022/untitled-1.png)][MyWebsite]
 
 |PKalinda|_
-
-|Travis|_ |PyPi|_ |Python35|_
 
 .. |Travis| image:: https://travis-ci.org/philipkalinda/stackerpy.svg?branch=master
 .. _Travis: https://travis-ci.org/philipkalinda/stackerpy
@@ -20,9 +17,7 @@
 StackerPy
 =========
 
-[![Build Status](https://travis-ci.org/philipkalinda/stackerpy.svg?branch=master)](https://travis-ci.org/philipkalinda/stackerpy)
-
-[![PyPI version](https://badge.fury.io/py/stackerpy.svg)](https://badge.fury.io/py/stackerpy)
+|Travis|_ |PyPi|_ |Python35|_
 
 Model Stacking for Scikit-Learn Models (including the ability to blend)
  
