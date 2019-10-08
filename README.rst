@@ -35,8 +35,7 @@ StackerPy uses a number of open source projects to work properly:
 * Matplotlib
 
 
-And of course StackerPy itself is open source with a `public repository <https://github.com/philipkalinda/StackerPy>`_
- on GitHub.
+And of course StackerPy itself is open source with a  `public repository <https://github.com/philipkalinda/StackerPy>`_ on GitHub.
 
 Installation
 ------------
