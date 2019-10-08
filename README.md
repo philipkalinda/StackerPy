@@ -8,6 +8,35 @@ Model Stacking for Scikit-Learn Models (including the ability to blend)
  
 More Details on Website @: [StackerPy - Model Stacking For Scikit-Learn Models](https://philipkalinda.com/ds10)
 
+### Tech
+
+StackerPy uses a number of open source projects to work properly:
+
+* SciKit-Learn
+* Numpy
+* Pandas
+* Matplotlib
+
+
+And of course StackerPy itself is open source with a [public repository][StackerPy]
+ on GitHub.
+
+### Installation
+Install the dependencies (although pip should do this when installing stackerpy)
+
+```sh
+$ pip install numpy
+$ pip install pandas
+$ pip install matplotlib
+$ pip install sklearn
+
+```
+
+Install the package
+
+```sh
+$ pip install stackerpy
+```
 
 ### How to use
 Stacker Model:
@@ -63,9 +92,15 @@ stacker_predictions = stacker.predict(X_test)
 
 
 
+License
+----
+
+MIT
+
+
 [//]: # 
 
 
-   [GeneticFS]: <https://github.com/philipkalinda/GeneticFS>
+   [StackerPy]: <https://github.com/philipkalinda/StackerPy>
    [MyWebsite]: <http://philipkalinda.com>
    
