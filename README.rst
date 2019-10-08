@@ -40,6 +40,7 @@ And of course StackerPy itself is open source with a  `public repository <https:
 Installation
 ------------
 Install the dependencies (although pip should do this when installing stackerpy) 
+
 .. code-block:: bash
     
     pip install numpy
