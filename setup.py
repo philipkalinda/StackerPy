@@ -8,7 +8,7 @@ setup(
   author = 'Philip Kalinda',
   author_email = 'philipkalinda@gmail.com',
   url = 'https://philipkalinda.com/ds10',
-  download_url = 'https://github.com/philipkalinda/stackerpy/archive/v_001.tar.gz',
+  download_url = 'https://github.com/philipkalinda/StackerPy/archive/v_001.tar.gz',
   keywords = ['Model Stacking', 'Stacking', 'Machine Learning', 'Algorithm', 'Optimization'],
   install_requires=[
           'numpy',
