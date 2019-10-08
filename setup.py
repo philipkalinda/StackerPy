@@ -14,7 +14,7 @@ setup(
   author = 'Philip Kalinda',
   author_email = 'philipkalinda@gmail.com',
   url = 'https://philipkalinda.com/ds10',
-  download_url = 'https://github.com/philipkalinda/StackerPy/archive/v_005.tar.gz',
+  download_url = 'https://github.com/philipkalinda/StackerPy/archive/v_006.tar.gz',
   keywords = ['Model Stacking', 'Blending', 'Stacking', 'Machine Learning', 'Algorithm', 'Scikit-Learn', 'Modelling', 'AI', 'Blending'],
   install_requires=[
           'numpy',
