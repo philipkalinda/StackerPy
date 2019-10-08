@@ -24,7 +24,8 @@ Model Stacking for Scikit-Learn Models (including the ability to blend)
 
 More Details on Website @: `StackerPy - Model Stacking For Scikit-Learn Models <https://philipkalinda.com/ds10>`_
 
-### Tech
+Tech
+----
 
 StackerPy uses a number of open source projects to work properly:
 
@@ -37,7 +38,8 @@ StackerPy uses a number of open source projects to work properly:
 And of course StackerPy itself is open source with a [public repository][StackerPy]
  on GitHub.
 
-### Installation
+Installation
+------------
 Install the dependencies (although pip should do this when installing stackerpy)
 
 ```sh
@@ -54,7 +56,8 @@ Install the package
 $ pip install stackerpy
 ```
 
-### How to use
+How to use
+----------
 Stacker Model:
 ```py
 # base models
@@ -102,7 +105,12 @@ stacker.fit(
 stacker_predictions = stacker.predict(X_test)
 ```
 
-### Performance
+Performance
+-----------
+
+|Results|_
+
+.. |Results| image:: https://raw.githubusercontent.com/philipkalinda/StackerPy/master/stackerpy/Model%20Scoring%20Results.png
 
 ![Results](https://raw.githubusercontent.com/philipkalinda/StackerPy/master/stackerpy/Model%20Scoring%20Results.png)
 
