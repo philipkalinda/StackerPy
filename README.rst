@@ -57,9 +57,10 @@ Install the package ::
 
 How to use
 ----------
-Stacker Model: .. code-block:: python
+Stacker Model: 
 
-    ```py
+.. code-block:: python
+
     # base models
     
     import pandas as pd
@@ -103,7 +104,7 @@ Stacker Model: .. code-block:: python
     
     # predicting
     stacker_predictions = stacker.predict(X_test)
-    ```
+
 
 Performance
 -----------
