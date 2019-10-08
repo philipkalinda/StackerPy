@@ -1,4 +1,4 @@
-![N|Solid](http://www.philipkalinda.com/uploads/8/6/5/4/86541022/untitled-1.png)
+[![N|Solid](http://www.philipkalinda.com/uploads/8/6/5/4/86541022/untitled-1.png)][MyWebsite]
 
 # StackerPy
 
@@ -60,3 +60,12 @@ stacker_predictions = stacker.predict(X_test)
 ### Performance
 
 ![Results](https://raw.githubusercontent.com/philipkalinda/StackerPy/master/stackerpy/Model%20Scoring%20Results.png)
+
+
+
+[//]: # 
+
+
+   [GeneticFS]: <https://github.com/philipkalinda/GeneticFS>
+   [MyWebsite]: <http://philipkalinda.com>
+   
