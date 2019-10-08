@@ -1,4 +1,4 @@
-[![N|Solid](http://www.philipkalinda.com/uploads/8/6/5/4/86541022/untitled-1.png)][MyWebsite]
+![N|Solid](http://www.philipkalinda.com/uploads/8/6/5/4/86541022/untitled-1.png)
 
 # StackerPy
 
