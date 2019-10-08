@@ -1,6 +1,6 @@
 from distutils.core import setup
 setup(
-  name = 'StackerPy',
+  name = 'stackerpy',
   packages = ['stackerpy'],
   version = '0.01',
   license='MIT',
