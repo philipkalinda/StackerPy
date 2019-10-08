@@ -1,8 +1,6 @@
 [![N|Solid](http://www.philipkalinda.com/uploads/8/6/5/4/86541022/untitled-1.png)][MyWebsite]
 
-|PK|_
-.. |PK| image:: http://www.philipkalinda.com/uploads/8/6/5/4/86541022/untitled-1.png
-.. _PK: http://philipkalinda.com
+|PKalinda|_
 
 |Travis|_ |PyPi|_ |Python35|_
 
@@ -14,6 +12,10 @@
 
 .. |PyPi| image:: https://badge.fury.io/py/stackerpy.svg
 .. _PyPi: https://badge.fury.io/py/stackerpy
+
+.. |PKalinda| image:: http://www.philipkalinda.com/uploads/8/6/5/4/86541022/untitled-1.png
+.. _PKalinda: http://philipkalinda.com
+
 
 StackerPy
 =========
