@@ -2,14 +2,14 @@ from distutils.core import setup
 setup(
   name = 'stackerpy',
   packages = ['stackerpy'],
-  version = '0.01',
+  version = '0.02',
   license='MIT',
   description = 'Model Stacking for scikit-learn models for Machine Learning',
   author = 'Philip Kalinda',
   author_email = 'philipkalinda@gmail.com',
   url = 'https://philipkalinda.com/ds10',
-  download_url = 'https://github.com/philipkalinda/StackerPy/archive/v_001.tar.gz',
-  keywords = ['Model Stacking', 'Stacking', 'Machine Learning', 'Algorithm', 'Optimization'],
+  download_url = 'https://github.com/philipkalinda/StackerPy/archive/v_002.tar.gz',
+  keywords = ['Model Stacking', 'Stacking', 'Machine Learning', 'Algorithm', 'Scikit-Learn', 'Modelling', 'AI', 'Blending'],
   install_requires=[
           'numpy',
           'pandas',
