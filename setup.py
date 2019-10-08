@@ -1,6 +1,6 @@
 from distutils.core import setup
 
-with open('README.rst') as f:
+with open('long_description.md') as f:
     LONG_DESCRIPTION = f.read()
     
 setup(
@@ -10,7 +10,7 @@ setup(
   license='MIT',
   description = 'Model Stacking for scikit-learn models for Machine Learning (including blending)',
   long_description=LONG_DESCRIPTION,
-  long_description_content_type='text/restructuredtext',
+  long_description_content_type='text/markdown',
   author = 'Philip Kalinda',
   author_email = 'philipkalinda@gmail.com',
   url = 'https://philipkalinda.com/ds10',
