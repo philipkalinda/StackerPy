@@ -57,7 +57,7 @@ Install the package ::
 
 How to use
 ----------
-Stacker Model: ::py
+Stacker Model: .. code-block:: python
 
     ```py
     # base models
