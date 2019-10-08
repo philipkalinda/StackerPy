@@ -108,27 +108,13 @@ stacker_predictions = stacker.predict(X_test)
 Performance
 -----------
 
-
-|Results|_
-
-
-.. |Results| image:: https://raw.githubusercontent.com/philipkalinda/StackerPy/master/stackerpy/Model%20Scoring%20Results.png
-
-
-.. _Results: http://philipkalinda.com
+.. image:: https://raw.githubusercontent.com/philipkalinda/StackerPy/master/stackerpy/Model%20Scoring%20Results.png
 
 
 
 
 License
-----
+-------
 
 MIT
 
-
-[//]: # 
-
-
-   [StackerPy]: <https://github.com/philipkalinda/StackerPy>
-   [MyWebsite]: <http://philipkalinda.com>
-   
