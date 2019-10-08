@@ -41,8 +41,6 @@ Installation
 ------------
 Install the dependencies (although pip should do this when installing stackerpy) 
 .. code-block:: bash
-
-.. highlight:: bash
     
     pip install numpy
     $ pip install pandas
