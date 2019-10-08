@@ -42,7 +42,9 @@ Installation
 Install the dependencies (although pip should do this when installing stackerpy) 
 .. code-block:: bash
 
-    $ pip install numpy
+.. highlight:: bash
+    
+    pip install numpy
     $ pip install pandas
     $ pip install matplotlib
     $ pip install sklearn
