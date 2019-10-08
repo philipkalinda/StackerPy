@@ -6,7 +6,7 @@ with open('README.rst') as f:
 setup(
   name = 'stackerpy',
   packages = ['stackerpy'],
-  version = '0.05',
+  version = '0.06',
   license='MIT',
   description = 'Model Stacking for scikit-learn models for Machine Learning (including blending)',
   long_description=LONG_DESCRIPTION,
