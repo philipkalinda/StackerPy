@@ -1,27 +1,19 @@
-|Travis|_ |PyPi|_ |DOI|_
+[![N|Solid](http://www.philipkalinda.com/uploads/8/6/5/4/86541022/untitled-1.png)][MyWebsite]
+
+|PK|_
+.. |PK| image:: http://www.philipkalinda.com/uploads/8/6/5/4/86541022/untitled-1.png
+.. _PK: http://philipkalinda.com
+
+|Travis|_ |PyPi|_ |Python35|_
 
 .. |Travis| image:: https://travis-ci.org/philipkalinda/stackerpy.svg?branch=master
 .. _Travis: https://travis-ci.org/philipkalinda/stackerpy
 
-.. |Codecov| image:: https://codecov.io/github/scikit-learn/scikit-learn/badge.svg?branch=master&service=github
-.. _Codecov: https://codecov.io/github/scikit-learn/scikit-learn?branch=master
-
-.. |CircleCI| image:: https://circleci.com/gh/scikit-learn/scikit-learn/tree/master.svg?style=shield&circle-token=:circle-token
-.. _CircleCI: https://circleci.com/gh/scikit-learn/scikit-learn
-
 .. |Python35| image:: https://img.shields.io/badge/python-3.5-blue.svg
-.. _Python35: https://badge.fury.io/py/scikit-learn
+.. _Python35: https://badge.fury.io/py/stackerpy
 
-.. |PyPi| image:: https://badge.fury.io/py/scikit-learn.svg
-.. _PyPi: https://badge.fury.io/py/scikit-learn
-
-.. |DOI| image:: https://zenodo.org/badge/21369/scikit-learn/scikit-learn.svg
-.. _DOI: https://zenodo.org/badge/latestdoi/21369/scikit-learn/scikit-learn
-
-
-
-
-[![N|Solid](http://www.philipkalinda.com/uploads/8/6/5/4/86541022/untitled-1.png)][MyWebsite]
+.. |PyPi| image:: https://badge.fury.io/py/stackerpy.svg
+.. _PyPi: https://badge.fury.io/py/stackerpy
 
 StackerPy
 =========
