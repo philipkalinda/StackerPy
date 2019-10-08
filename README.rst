@@ -43,17 +43,18 @@ Install the dependencies (although pip should do this when installing stackerpy)
 
 .. code-block:: bash
     
-    pip install numpy
+    $ pip install numpy
     $ pip install pandas
     $ pip install matplotlib
     $ pip install sklearn
 
 
-Install the package ::
+Install the package 
 
-    ```sh
+.. code-block:: bash
+
     $ pip install stackerpy
-    ```
+
 
 How to use
 ----------
