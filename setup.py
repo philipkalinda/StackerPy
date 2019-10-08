@@ -1,20 +1,15 @@
 from distutils.core import setup
-
-with open('README.md') as f:
-    LONG_DESCRIPTION = f.read()
     
 setup(
   name = 'stackerpy',
   packages = ['stackerpy'],
-  version = '0.07',
+  version = '0.03',
   license='MIT',
   description = 'Model Stacking for scikit-learn models for Machine Learning (including blending)',
-  long_description=LONG_DESCRIPTION,
-  long_description_content_type='text/markdown',
   author = 'Philip Kalinda',
   author_email = 'philipkalinda@gmail.com',
   url = 'https://philipkalinda.com/ds10',
-  download_url = 'https://github.com/philipkalinda/StackerPy/archive/v_007.tar.gz',
+  download_url = 'https://github.com/philipkalinda/StackerPy/archive/v_003.tar.gz',
   keywords = ['Model Stacking', 'Blending', 'Stacking', 'Machine Learning', 'Algorithm', 'Scikit-Learn', 'Modelling', 'AI', 'Blending'],
   install_requires=[
           'numpy',
